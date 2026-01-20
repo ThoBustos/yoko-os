@@ -1,3 +1,7 @@
+---
+last_reviewed: {{YYYY-MM-DD}}
+---
+
 # {{Name}}
 
 ---

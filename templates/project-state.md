@@ -1,3 +1,9 @@
+---
+last_reviewed: {{YYYY-MM-DD}}
+confidence: high
+next_review: {{YYYY-MM-DD + 1 week}}
+---
+
 # {{Project Name}} - Current State
 
 *Last updated: {{DATE}}*
@@ -72,6 +78,18 @@
 - Figma:
 - Drive:
 - Other:
+
+---
+
+## Integrations
+
+*Override default accounts for this project. Leave empty to use defaults from GLOBAL_STATE.md*
+
+| Service | Account | Notes |
+|---------|---------|-------|
+| Google Workspace | | Calendar, Drive, Gmail |
+| GitHub | | |
+| Slack | | |
 
 ---
 
