@@ -47,7 +47,10 @@ Your operating system - the stable foundation everything else builds on.
 ├── LIFE_VISION_ARCHIVE.md    # Past visions
 ├── PILLARS.md                # The 10 life pillars
 ├── PRINCIPLES.md             # Operating principles
+├── TODO.md                   # Master cross-project to-do list
 └── OPS/                      # Personal processes
+    ├── curation-ritual.md    # How to keep vault fresh
+    ├── todo-protocol.md      # How to-do system works
     ├── daily-routine.md
     └── weekly-ritual.md
 ```
@@ -109,13 +112,29 @@ Active projects with full context.
     ├── _STATE.md      # Current status
     ├── _BACKLOG.md    # Tasks and ideas
     ├── Calls/         # Meeting notes
+    │   └── (or User/, Client/, Team/ for CRM-style projects)
     ├── Decisions/     # Key decisions
-    └── Notes/         # Strategy docs
+    ├── Notes/         # Strategy docs
+    ├── People/        # Optional: project-specific contacts (CRM)
+    ├── Accounts/      # Optional: company/org accounts (CRM)
+    └── Legal/         # Optional: contracts, templates (business)
+        ├── _GUIDE.md
+        ├── _SYSTEM.md      # Contracting principles
+        ├── Templates/
+        ├── Contracts/
+        ├── Strategies/
+        └── Clients/
 ```
 
 **Key files:**
 - `_STATE.md` - Always read first for project context
 - `_BACKLOG.md` - Prioritized work items
+
+**Optional folders for business/CRM projects:**
+- `People/` - Project-specific contacts with email thread tracking
+- `Accounts/` - Company/organization tracking
+- `Legal/` - Contracts, templates, legal workspace
+- `Calls/User|Client|Team/` - Organized call types
 
 ---
 
@@ -144,10 +163,22 @@ Your creative output.
 ```
 05_WRITING/
 ├── _GUIDE.md
+├── Daily/          # Daily writing practice
 ├── Reflections/    # Personal thinking
 ├── Drafts/         # Work in progress
 ├── Published/      # Shipped work
 └── Ideas/          # Seeds and hooks
+```
+
+**The Daily → Published pipeline:**
+```
+Daily/          → capture raw ideas, practice
+    ↓
+Ideas/          → seeds worth developing
+    ↓
+Drafts/         → active work in progress
+    ↓
+Published/      → shipped work
 ```
 
 ---
