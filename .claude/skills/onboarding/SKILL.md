@@ -20,16 +20,20 @@ Welcome the user to Personal Agent OS. Explain what we're about to build togethe
 
 > "Welcome to Personal Agent OS! I'm going to help you set up your personal life operating system.
 >
-> Together, we'll create a structured vault that helps you:
+> Here's what we'll do:
+>
+> **Part 1: Create Your Vault** (~15 min)
 > - Define your life vision and identity
-> - Organize around meaningful pillars (not chaotic to-do lists)
-> - Track projects with rich context
-> - Maintain important relationships
-> - Reflect at daily, weekly, and monthly cadences
+> - Customize your 10 life pillars
+> - Set up your active projects
+> - Create your personalized vault at `../my-vault/`
 >
-> I'll ask you some questions, then create your personalized vault as a sibling folder to this repo.
+> **Part 2: Connect Google** (optional, ~10 min)
+> - Set up Gmail, Calendar, Drive access
+> - Requires creating your own Google Cloud OAuth app
+> - Your credentials stay on your machine
 >
-> Ready?"
+> Ready to start Part 1?"
 
 Wait for confirmation before proceeding.
 
@@ -270,7 +274,73 @@ For deeper learning:
 - [Cadences](docs/CADENCES.md) - Complete ritual breakdowns
 - [Philosophy](docs/PHILOSOPHY.md) - Why this structure works
 - [FAQ](docs/FAQ.md) - Common questions
-- [Skills Catalog](docs/SKILLS_CATALOG.md) - All available skills
+- [Skills Catalog](docs/SKILLS_CATALOG.md) - All available skills"
+
+---
+
+## Step 8: Google Integration (Recommended)
+
+After explaining the cadences, offer to set up Google integration:
+
+"One more thing - do you want to connect your Google account(s)?
+
+This enables Claude to:
+- Read and search your emails
+- Check your calendar
+- Access Drive files
+- Help with docs and sheets
+
+**It's recommended** for full functionality, but you can set it up later.
+
+Setting it up requires creating your own Google Cloud OAuth app (~10 min one-time setup). Your credentials stay on your machine - I never see them.
+
+Would you like to:
+1. **Set it up now** - I'll walk you through creating your OAuth app
+2. **Skip for now** - You can run `/setup-mcp` later
+
+[Use AskUserQuestion with these options]"
+
+### If they choose "Set it up now":
+
+"Great! Here's what we'll do:
+
+**Step 1: Create Google Cloud Project** (2 min)
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Click 'Select a project' → 'New Project'
+3. Name it `personal-agent-os` → Create
+
+**Step 2: Enable APIs** (2 min)
+In your project, go to 'APIs & Services' → 'Library' and enable:
+- Gmail API
+- Google Calendar API
+- Google Drive API
+- Google Docs API
+
+**Step 3: Create OAuth Credentials** (5 min)
+1. Go to 'APIs & Services' → 'OAuth consent screen'
+2. Select 'External' → Fill in app name and your email
+3. Add scopes: gmail.modify, calendar, drive, documents
+4. Add yourself as a test user
+5. Go to 'Credentials' → 'Create Credentials' → 'OAuth client ID'
+6. Type: Desktop app → Create → Download JSON
+
+**Step 4: Add to Claude Code** (1 min)
+Once you have the JSON file downloaded:
+1. Move it to `~/.config/personal-agent-os/google/credentials.json`
+2. Run: `claude mcp add google-workspace -- uvx workspace-mcp`
+3. Restart Claude Code
+
+Tell me when you've completed each step, and I'll help if you get stuck.
+
+[Wait for user to complete steps, offer help as needed]"
+
+### If they choose "Skip for now":
+
+"No problem! You can set this up anytime by:
+- Running `/setup-mcp` in Claude Code
+- Or following the guide at `docs/mcp/google-workspace.md`
+
+Your vault is fully functional without it - Google integration just adds extra capabilities.
 
 You're all set! The structure is here. Now the work is living in it."
 

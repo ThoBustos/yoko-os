@@ -5,30 +5,24 @@ This directory contains documentation and examples for MCP integrations.
 ## Quick Start
 
 ```bash
-# 1. Copy the example env file
-cp .env.example .env
-
-# 2. Edit .env with your credentials
-# Get from: https://console.cloud.google.com/apis/credentials
-
-# 3. Configure Claude Code MCP
-source .env
+# 1. Add the Google Workspace MCP server to Claude Code
 claude mcp add google-workspace \
-  -e GOOGLE_OAUTH_CLIENT_ID=$GOOGLE_OAUTH_CLIENT_ID \
-  -e GOOGLE_OAUTH_CLIENT_SECRET=$GOOGLE_OAUTH_CLIENT_SECRET \
+  -e GOOGLE_OAUTH_CLIENT_ID=your-client-id \
+  -e GOOGLE_OAUTH_CLIENT_SECRET=your-client-secret \
   -- uvx workspace-mcp
 
-# 4. Restart Claude Code, then add your Google account:
+# 2. Restart Claude Code, then add your Google account:
 # "Add my Google account you@example.com"
 ```
+
+Get OAuth credentials from: https://console.cloud.google.com/apis/credentials
 
 ## Where Credentials Live
 
 | What | Location | Committed? |
 |------|----------|------------|
-| Template | `.env.example` | Yes |
-| Your secrets | `.env` | No (gitignored) |
-| OAuth tokens | `~/.google-mcp-accounts/` | No |
+| OAuth app secrets | Claude Code MCP config | No |
+| OAuth tokens | `~/.google-mcp-accounts/<email>.json` | No |
 
 ## Current Setup
 
@@ -56,7 +50,7 @@ Account selection:
 
 | File | Purpose |
 |------|---------|
-| `google-credentials.example.json` | Legacy template (use .env instead) |
+| `google-credentials.example.json` | Reference for OAuth app structure |
 
 ## Resources
 

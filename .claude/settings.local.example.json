@@ -2,11 +2,12 @@
   "mcpServers": {
     "google-workspace": {
       "type": "stdio",
-      "command": "/opt/homebrew/bin/google-mcp-server",
-      "args": [
-        "--config",
-        "~/.config/personal-agent-os/google/config.json"
-      ]
+      "command": "uvx",
+      "args": ["workspace-mcp"],
+      "env": {
+        "GOOGLE_OAUTH_CLIENT_ID": "your-client-id.apps.googleusercontent.com",
+        "GOOGLE_OAUTH_CLIENT_SECRET": "your-client-secret"
+      }
     }
   }
 }
