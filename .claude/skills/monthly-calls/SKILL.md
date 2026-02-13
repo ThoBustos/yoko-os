@@ -133,11 +133,39 @@ Create a summary with these sections:
 #{{project}} #monthly-calls #{{year}}-{{month}}
 ```
 
-### Step 7: Write Output
+### Step 7: Confirm & Write Output
 
-1. Create the output file at: `03_PROJECTS/{{Project}}/Notes/{{YYYY}}-{{MM}}-calls.md`
-2. Create the `Notes/` folder if it doesn't exist
-3. Report success with the file path
+1. Check if output file already exists at: `03_PROJECTS/{{Project}}/Notes/{{YYYY}}-{{MM}}-calls.md`
+2. **If file exists:**
+   - Inform user: "Summary for {{Project}} {{Month}} {{Year}} already exists at {{path}}"
+   - Ask user: "Do you want to overwrite the existing summary or skip?"
+   - Options: Overwrite / Skip
+   - If Skip: End here, report "Skipped - existing summary preserved"
+
+3. **Before writing, show what will be saved:**
+```
+I'm about to save the monthly call summary:
+- {{N}} calls processed
+- {{N}} people in relationship map
+- {{N}} decisions logged
+- {{N}} themes identified
+
+File: 03_PROJECTS/{{Project}}/Notes/{{YYYY}}-{{MM}}-calls.md
+
+Proceed? (Yes/No)
+```
+
+4. Create the `Notes/` folder if it doesn't exist
+5. Write the output file
+
+6. **After writing, verify:**
+```
+✓ Monthly summary saved to: 03_PROJECTS/{{Project}}/Notes/{{YYYY}}-{{MM}}-calls.md
+  - Timestamp: {{ISO}}
+  - {{word count}} words
+
+Summary complete.
+```
 
 ### Step 8: Update Person Cards with Monthly Trajectory
 
@@ -165,6 +193,16 @@ For each person in the Relationship Map:
    - **Warming:** Increasing frequency, deeper topics, positive signals
    - **Steady:** Consistent engagement, stable relationship
    - **Cooling:** Decreasing contact, surface-level topics, or explicit distance
+
+5. **After updating person cards, verify:**
+```
+✓ Updated {{N}} person cards:
+  - {{Person 1}} (trajectory: {{status}})
+  - {{Person 2}} (trajectory: {{status}})
+  ...
+
+All relationship updates complete.
+```
 
 ---
 

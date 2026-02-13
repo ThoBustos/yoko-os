@@ -41,7 +41,14 @@ The vault is the single source of truth. Claude's job is to:
 ## Information Architecture
 
 ### Vault Location
-The user's vault is at `../my-vault/` relative to this repo.
+
+**For file operations, use the absolute vault path from `config/vault.json`.**
+
+Setup:
+1. Copy `config/vault.example.json` → `config/vault.json`
+2. Set your vault's absolute path (e.g., `/Users/yourname/Documents/my-vault`)
+
+On session start: Read `config/vault.json` to get the vault path. If it doesn't exist, fall back to resolving `../my-vault/` from the repo root.
 
 ### Folder Structure
 ```
@@ -53,6 +60,7 @@ my-vault/
 │   ├── IMPORTANT_DATES.md # Recurring dates, rituals, anniversaries
 │   ├── TODO.md          # Master cross-project to-do list
 │   └── OPS/             # System operations and rituals
+│       ├── activity-logs/  # Weekly session activity logs
 │       └── scans/       # Pulse logs and deep scan reports
 ├── 01_GOALS/            # Life → Year → Quarter cascade
 ├── 02_JOURNAL/          # Weekly/ and Monthly/ reflections
@@ -94,6 +102,7 @@ Skills are invoked with `/skill-name` or by trigger phrases. All skills are in `
 |-------|------|---------|
 | `/scan` | Anytime | Quick pulse check, surface what's off |
 | `/scan deep` | Weekly or when lost | Comprehensive audit with challenger coaching |
+| `/unload` | End of day | Brain dump + state synthesis + tomorrow prep |
 
 ### Trigger Phrases
 These phrases invoke `/onboarding`:
@@ -122,22 +131,100 @@ These phrases invoke `/onboarding`:
 - Update `last_updated` timestamp on files you modified
 - Suggest next actions if relevant
 
+### Activity Logging (Auto)
+
+After EACH completed task, log the interaction to the weekly activity log. This happens automatically—user doesn't need to ask.
+
+**When to log:**
+- Files were created or modified
+- A task or research was completed
+- A decision was made or meaningful advice given
+
+**When NOT to log:**
+- Pure clarifying questions ("which option?")
+- Quick back-and-forth before actual work
+- Casual chat with no outcome
+
+**Step 1: Determine current week file**
+- Calculate ISO week number from current date
+- Target file: `00_SYSTEM/OPS/activity-logs/YYYY-Wxx.md`
+
+**Step 2: Create file if needed**
+If file doesn't exist, create with header:
+```markdown
+---
+week: YYYY-Wxx
+created: YYYY-MM-DD
+---
+
+# Activity Log - Week XX (Mon D - Sun D, YYYY)
+
+Session-level tracking of Claude interactions.
+
+---
+```
+
+**Step 3: Append session entry**
+Format (append below last entry):
+```markdown
+## [Day] DD · HH:MM - [Session Theme]
+
+**Projects:** #tag1 #tag2
+**Summary:** 1-2 sentences of what was done.
+**Files touched:**
+- `path/to/file.md` (created/modified)
+**Decisions:** Decision made, or "None"
+
+---
+```
+
+**Rules:**
+- Day format: Mon/Tue/Wed/Thu/Fri/Sat/Sun + date number (e.g., "Sun 02")
+- Time: Use 24-hour format (e.g., "16:30")
+- Keep entries concise (5 lines max for summary)
+- Use project tags: #project1, #project2, #personal, #system
+- If just Q&A with no file changes, log as "Discussion/Research"
+- New week = new file (auto-created on first session of week)
+
+**File location:** `00_SYSTEM/OPS/activity-logs/`
+
 ### Integration Resolution (for MCP tools)
 
-When using MCP tools that require Google account selection:
+When using MCP tools that require account/workspace selection (Google, Notion, Linear, Granola, etc.):
 
 1. **Check project context** - If working on a specific project, read its `_STATE.md` Integrations section
 2. **Apply context rules** - Use GLOBAL_STATE.md "Account Selection Rules" for domain-specific logic
-3. **Fall back to default** - Use GLOBAL_STATE.md primary account if no override exists
+3. **Fall back to default** - Use GLOBAL_STATE.md primary account/workspace if no override exists
 4. **Never ask** if configured - Only ask when account is genuinely ambiguous
 
 **Resolution order:** Project _STATE.md → Context Rules → Global Default → Ask user
 
 **Examples:**
-- "Check podcast Drive folder" → use account configured for podcast/LTAI
+- "Check podcast Drive folder" → use account configured for podcast/content project
 - "Email a podcast guest" → use account configured for external comms
 - "Send work email" → use work account from project _STATE.md
 - "Read calendar for this week" → use default account
+- "Create Linear issue for this bug" → use Linear workspace from project _STATE.md or default
+- "List my Linear issues" → use default Linear workspace
+
+### Calendar Checking (All Accounts)
+
+When checking calendars, ALWAYS check ALL Google accounts listed in GLOBAL_STATE.md:
+
+| Account | Calendar ID | Notes |
+|---------|-------------|-------|
+| work@company.com | primary | Work meetings |
+| personal@example.com | primary | Personal events |
+| sideproject@example.com | sideproject@example.com | Side project meetings |
+
+**Process:**
+1. Read GLOBAL_STATE.md "Default Integrations" table
+2. For each Google account, call `get_events` with correct email
+3. Some accounts have calendar ID = email (not "primary")
+4. Also search recent emails for calendar invites
+5. Merge all events into single chronological view
+
+**Common mistake:** Only checking primary calendar misses project-specific calendars.
 
 ---
 
@@ -151,6 +238,13 @@ When using MCP tools that require Google account selection:
 | People notes | 1 month | Suggest review if person is mentioned |
 | Goals | 1 quarter | Prompt quarterly review |
 | Vision | 1 year | Prompt yearly refresh |
+
+---
+
+## Document Creation Rules
+
+- **Always add date** - Every note, map, or document created in the vault must have a date at the top (format: `*Date: YYYY-MM-DD*` or in frontmatter)
+- **Use consistent naming** - Files should include date prefix when relevant: `YYYY-MM-DD-topic.md`
 
 ---
 
@@ -196,14 +290,17 @@ Skills have prerequisites. If a prerequisite is missing, redirect up the cascade
       └── IF MISSING → suggest /onboarding first
 ```
 
+Life goals and Yearly skills are not yet implemented; planned so pillars and life connect to yearly, then monthly → weekly → daily.
+
 ---
 
 ## Information Flow
 
 ### Planning Flow (Top-Down)
 ```
-LIFE_VISION.md → Year Goals → Quarter Goals → Month Plan → Weekly Plan → Daily Focus
+LIFE_VISION.md + PILLARS → Life goals → Year goals → Month plan → Weekly plan → Daily focus
 ```
+(Full cascade when Life and Yearly skills exist.)
 
 ### Reflection Flow (Bottom-Up)
 ```

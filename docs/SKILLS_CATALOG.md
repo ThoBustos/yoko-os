@@ -25,12 +25,29 @@ This document describes all available skills in Personal Agent OS. Skills are in
 └─────────────────────────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────────────────────────┐
+│                   QUICK CAPTURE SKILLS                          │
+├─────────────────────────────────────────────────────────────────┤
+│  /update        │ Universal quick capture - capture anything   │
+│  /add-task      │ Add tasks to proper locations                │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
 │                     HEALTH SKILLS                               │
 ├─────────────────────────────────────────────────────────────────┤
 │  /scan          │ Quick pulse check - surface what's off       │
 │  /scan deep     │ Comprehensive audit with challenger coaching │
+│  /unload        │ End-of-day brain dump + state synthesis      │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+### Planned / Coming soon
+
+These skills are not yet implemented. Pillars and life connect to yearly; yearly feeds monthly → weekly → daily.
+
+| Skill | Purpose |
+|-------|---------|
+| **Life goals** | Connect LIFE_VISION and PILLARS to life-level goals (e.g. `01_GOALS/Life.md`). |
+| **Yearly** | Year planning from pillars + life; creates/updates `01_GOALS/{{year}}.md`. Intended prerequisite for monthly. |
 
 ---
 
@@ -221,6 +238,117 @@ This document describes all available skills in Personal Agent OS. Skills are in
 
 ---
 
+## Quick Capture Skills
+
+### /update
+
+**When to use:** Anytime you have information to capture but don't want a full `/daily` session.
+
+**Usage:**
+```
+/update {{free-form text update}}
+```
+
+**Examples:**
+```
+/update reviewed ClientCo situation. they sent me emails in september for issues and invoices questions that I've lost track of. also completed/updated all vendor informations that's done.
+
+/update had great call with Team Lead about Acme architecture. Decided to refactor the session builder.
+
+/update finished puzzle with Partner. Quality time. Tomorrow is a weekend trip!
+
+/update shipped YouTube episode. 3 reels ready. Need to book podcast guests next week.
+```
+
+**Prerequisites:**
+- GLOBAL_STATE.md exists
+- Current week journal exists (run /weekly if missing)
+
+**What it does:**
+
+**Phase 1: Read Context** (Silent)
+- Loads GLOBAL_STATE, current week journal, TODO, active project states, people directory
+
+**Phase 2: Parse Input**
+- Extracts entities (projects, people, companies)
+- Identifies actions (completion verbs, status changes)
+- Detects context clues (decisions, tasks, interactions)
+
+**Phase 3: Categorize Across 8 Categories**
+Scans input for:
+1. **Journal Entry** - Always logs to weekly journal
+2. **Project Updates** - Updates project _STATE.md if projects mentioned
+3. **People Mentioned** - Updates or creates person notes
+4. **Tasks** - Marks completed or adds new tasks
+5. **System State** - Updates GLOBAL_STATE.md if priorities shift
+6. **Ideas/Content** - Adds to 05_WRITING/Ideas/
+7. **Goals** - Updates goal files if priorities change
+8. **Important Dates** - Adds deadlines to IMPORTANT_DATES.md
+
+**Phase 4: Entity Resolution**
+- For unknown entities, asks: "Person, Company, Project, or Ignore?"
+- Creates appropriate files if needed
+
+**Phase 5: Show Full Recap**
+- Displays complete picture of what will be updated where
+- User confirms before any writes happen
+
+**Phase 6: Write All Files Atomically**
+- Updates all relevant files in proper order
+- Updates timestamps on all modified files
+
+**Phase 7: Verify All Writes**
+- Shows what was updated and where
+- Flags any write failures
+
+**Philosophy:** "Capture anything, update everything" - Zero entropy, maximum distribution.
+
+**Key Difference from /daily:**
+- `/daily` = Structured Q&A reflection ritual with calendar, energy check, pillar tracking
+- `/update` = Free-form quick capture of ad-hoc information
+
+**Output:** Updates to journal, tasks, projects, people, state - whatever is relevant to your input.
+
+**Duration:** 2-5 minutes
+
+---
+
+### /add-task
+
+**When to use:** When you need to add a single task to the proper locations.
+
+**Usage:**
+```
+/add-task [#project] <description> [- timeline]
+```
+
+**Examples:**
+```
+/add-task #acme Call client about user insights
+/add-task #phoenix Review contract - backlog
+/add-task Fix personal website - someday
+```
+
+**Prerequisites:**
+- TODO.md exists
+- Project folder exists (if project-scoped)
+
+**What it does:**
+1. Parses project tag, description, and timeline
+2. Determines which files to update (TODO.md and/or project _BACKLOG.md)
+3. Shows confirmation of what will be added where
+4. Writes to appropriate files and updates timestamps
+
+**Timeline options:**
+- This Week (default)
+- Backlog
+- Waiting On
+- Someday
+
+**Output:** Task added to TODO.md and/or project _BACKLOG.md
+
+---
+
 ## Health Skills
 
 ### /scan
@@ -302,6 +430,72 @@ This document describes all available skills in Personal Agent OS. Skills are in
 
 ---
 
+### /unload
+
+**When to use:** End of day when brain is full, before bed to clear mental load, or when feeling overwhelmed with open loops.
+
+**Usage:**
+```
+/unload
+```
+
+**Prerequisites:**
+- Current week journal must exist (run /weekly if missing)
+- GLOBAL_STATE.md must exist
+
+**What it does:**
+
+**Phase 1: Context Gathering** (Silent)
+- Reads GLOBAL_STATE, TODO, current week journal, all active project _STATE files
+- Reads activity log for today, IMPORTANT_DATES for tomorrow
+- Calculates task completion status, pillar gaps, project staleness
+
+**Phase 2: Synthesize Week State**
+- Shows Week Progress so far (each day's summary)
+- Shows Top 3 Professional/Personal status with completion indicators
+- Surfaces pillar gaps (commitments not met)
+- Flags stale projects and overdue waiting items
+- Shows tomorrow's calendar and important dates
+
+**Phase 3: Brain Dump**
+- Single open prompt: "Dump everything on your mind"
+- Categorizes everything mentioned: tasks, people, ideas, decisions, reminders, worries
+- Routes each item to appropriate file location
+- Asks about unknown entities (Person? Project? Company?)
+
+**Phase 4: Tomorrow Suggestions**
+- Recommends Top 3 based on weekly goals not yet done
+- Highlights pillar opportunities
+- Shows calendar blocks and suggests deep work time
+- User confirms or adjusts
+
+**Phase 5: State Updates**
+- Shows full recap of what will be updated where
+- User confirms before any writes
+
+**Phase 6: Write + Verify**
+- Updates weekly journal: Week Progress, daily entry, pillar grid, Running Thread
+- Updates TODO.md with completed/new tasks
+- Updates project _STATE.md files if needed
+- Creates/updates person notes if needed
+- Shows verification with checkmarks
+
+**Key difference from /daily:**
+- `/daily` = Structured Q&A ritual with calendar, energy check, pillar tracking
+- `/unload` = Pure mind-clearing dump + intelligent state synthesis + tomorrow prep
+
+**Anti-entropy rules:**
+- Every brain dump item gets routed somewhere (no orphan thoughts)
+- Week Progress grows daily (no blind spots)
+- Pillar gaps surfaced each session (no forgotten commitments)
+- Suggested tomorrow grounded in actual weekly goals (no phantom priorities)
+
+**Duration:** 10-15 minutes
+
+**Output:** Updates to weekly journal (Week Progress + Running Thread), TODO.md, project states, person notes
+
+---
+
 ## Skill Cascade (Dependencies)
 
 Skills have prerequisites. If a prerequisite is missing, the skill will redirect you.
@@ -355,6 +549,11 @@ Each cadence skill captures data that feeds into the next level up.
 - "I'm starting a new project called X" → triggers /new-project
 - "Summarize all my calls from this week for Project Y" → triggers /weekly-calls
 
+**Quick Capture:**
+- "/update had call with X about Y. Decided Z." → captures across vault
+- "/update shipped feature X. Need to do Y next week." → logs + creates tasks
+- "/add-task #project Do something - backlog" → adds task properly
+
 **System Health:**
 - "Is my system up to date?" → triggers /scan
 - "What's stale in my vault?" → triggers /scan
@@ -369,7 +568,8 @@ Each cadence skill captures data that feeds into the next level up.
 1. **Build the habit** - Run /daily every day, /weekly every Sunday
 2. **Trust the cascade** - If a skill redirects you, follow it
 3. **Keep it quick** - /daily should be 5-10 min, not 30
-4. **Go deep monthly** - That's where real reflection happens
-5. **Update as you go** - Skills will prompt you to keep things fresh
-6. **Run /scan often** - Quick pulse checks prevent entropy buildup
-7. **Don't defend** - When /scan challenges you, sit with the discomfort
+4. **Use /update liberally** - Quick captures prevent information leakage
+5. **Go deep monthly** - That's where real reflection happens
+6. **Update as you go** - Skills will prompt you to keep things fresh
+7. **Run /scan often** - Quick pulse checks prevent entropy buildup
+8. **Don't defend** - When /scan challenges you, sit with the discomfort

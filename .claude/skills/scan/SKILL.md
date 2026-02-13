@@ -88,7 +88,7 @@ Flag anything stale:
 
 Surface upcoming important dates:
 - Check IMPORTANT_DATES.md for any dates within the next 7 days
-- Flag: "{{Date name}} coming up on {{date}}" (e.g., "Monthly anniversary with Princess on the 20th")
+- Flag: "{{Date name}} coming up on {{date}}" (e.g., "Monthly anniversary with Partner on the 20th")
 
 ### Phase 4: Attention vs Intention
 
@@ -138,7 +138,7 @@ Examples:
 
 Be specific. Don't say "consider updating X" - say "Update X now."
 
-### Phase 7: Save Pulse
+### Phase 7: Save Pulse & Verify
 
 Append to `../my-vault/00_SYSTEM/OPS/scans/pulse-log.md`:
 
@@ -171,6 +171,15 @@ Vision→Life: {{status}} | Life→Year: {{status}} | Year→Month: {{status}} |
 ```
 
 If the file doesn't exist, create it with the pulse-log template header first.
+
+**After writing, confirm:**
+```
+✓ Pulse saved to: 00_SYSTEM/OPS/scans/pulse-log.md
+  - Timestamp: {{ISO}}
+  - Entry appended successfully
+
+Scan complete.
+```
 
 ---
 
@@ -388,7 +397,7 @@ Based on everything, give direct recommendations:
 
 Be specific and opinionated. Don't hedge.
 
-### Phase 8: Save Deep Scan Report
+### Phase 8: Save Deep Scan Report & Verify
 
 Create: `../my-vault/00_SYSTEM/OPS/scans/{{YYYY-MM-DD}}-deep-scan.md`
 
@@ -399,6 +408,15 @@ Use the scan-report template. Include:
 - Key challenges surfaced
 - Recommended actions
 - User responses to reconnection questions (if captured)
+
+**After writing, confirm:**
+```
+✓ Deep scan report saved to: 00_SYSTEM/OPS/scans/{{YYYY-MM-DD}}-deep-scan.md
+  - Timestamp: {{ISO}}
+  - Report includes {{N}} sections
+
+✓ Scan complete. Review the report for actionable insights.
+```
 
 ---
 

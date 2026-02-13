@@ -1,0 +1,4 @@
+{
+  "vault_path": "/path/to/your/vault",
+  "_comment": "Copy this file to vault.json and set your vault's absolute path"
+}

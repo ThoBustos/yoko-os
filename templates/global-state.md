@@ -65,13 +65,17 @@ next_review: {{YYYY-MM-DD + 3 days}}
 | Google (Personal) | {{email}} | Personal emails, non-work | Optional |
 | Google (Work/Other) | {{email}} | Specific workspace | Optional |
 | GitHub | {{username}} | | |
+| Notion (Personal) | {{workspace name}} | Vault integration, personal docs | |
+| Notion (Work) | work@company.com | Client work, course templates | |
+| Notion (Project) | {{workspace name}} | Business operations | |
+| Linear | {{workspace name}} | Issue tracking, project management | OAuth via MCP |
 
 ### Account Selection Rules
 
 *Define context-based rules for automatic account selection*
 
 - **Project context** → Use project's `_STATE.md` integration if specified
-- **Domain-based** → Example: "LTAI content" uses LTAI account
+- **Domain-based** → Example: "Content project" uses content account
 - **Default/unspecified** → Primary account
 
 ---

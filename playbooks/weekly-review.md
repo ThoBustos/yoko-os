@@ -1,142 +1,228 @@
 # Weekly Review Playbook
 
-A structured process for reflecting on the past week and setting intentions for the next.
+A structured process for closing the past week with pattern insights and setting up the next with clarity.
 
 ## When
 
-**Sunday evening or Monday morning** - Pick one and be consistent.
+**Saturday evening, Sunday, or Monday morning** — Flexible by design. Pick what works.
 
 **Duration:** 30-45 minutes
 
 ---
 
-## Part 1: Review Last Week (15 min)
+## Philosophy
 
-### 1. Scan Your Week
-
-Open last week's document (`02_JOURNAL/Weekly/YYYY-W##.md`).
-
-Look at:
-- Daily entries
-- Completed tasks
-- Unfinished items
-- Notes and gratitude entries
-
-### 2. What Went Well?
-
-List 3-5 wins. Include:
-- Tasks completed
-- Moments of presence
-- Connections made
-- Insights gained
-
-### 3. What Didn't Go Well?
-
-Be honest:
-- What did you avoid?
-- What took longer than expected?
-- Where did you lose energy?
-- What remained undone?
-
-### 4. Pillar Scores
-
-Rate each pillar (1-10):
-- Body
-- Spirit
-- Mind
-- Relationships
-- Joy
-- Creation
-- Wealth
-- Impact
-- Media
-- Exploration
-
-Notice which ones are low. They need attention next week.
+- **Don't ask what you know** — Read the data, surface patterns, confirm accuracy
+- **Project-first** — Top 3s emerge from project review, not abstract thinking
+- **Think bigger** — This isn't task management, it's life alignment
+- **Zero entropy** — Every mentioned entity gets updated
 
 ---
 
-## Part 2: Plan Next Week (15-20 min)
+## The Flow
 
-### 1. Create New Weekly Doc
-
-Create `02_JOURNAL/Weekly/YYYY-W##.md` using the template.
-
-### 2. Keystone Focus
-
-Ask: **If only one thing worked this week, what would matter most?**
-
-This is your north star for the week. Everything else supports this.
-
-### 3. Pillar Intentions
-
-For each foundational pillar, set a simple intention:
-
-| Pillar | Intention | Metric |
-|--------|-----------|--------|
-| Body | | |
-| Creation | | |
-| Relationships | | |
-| Clarity | | |
-| Spirit | | |
-
-Keep it simple. "3 workouts" not "Perfect nutrition every day."
-
-### 4. One Brave Act
-
-What uncomfortable thing will you do this week?
-
-Growth requires discomfort. Name one specific act of courage.
-
-### 5. One Joy Anchor
-
-What will you do purely for aliveness?
-
-Not productive. Not useful. Just alive.
-
-### 6. One System Upgrade
-
-What will make future weeks easier?
-
-A template? A automation? A delegation? A simplification?
-
-### 7. Project Check
-
-Scan your active projects (`03_PROJECTS/`):
-- Update `_STATE.md` if needed
-- Move items from backlog to this week
-- Note any blockers
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│  SILENT READ → WEEK PORTRAIT → PROJECTS → TOP 3s → PILLARS →       │
+│  THINK BIGGER → FULL RECAP → WRITE → VERIFY                        │
+└─────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## Part 3: Prepare (5 min)
+## Part 1: Week Portrait (10 min)
 
-### Calendar Scan
+Close last week with **patterns**, not just lists.
 
-Look at your calendar for the week:
-- What's fixed?
-- Where's your deep work time?
-- Any conflicts with your intentions?
+### 1. Read Last Week
 
-### Energy Mapping
+Open `02_JOURNAL/Weekly/YYYY-W##.md` and scan:
+- Daily entries (energy levels, notes)
+- Completed/incomplete tasks
+- Pillar tracking grid
+- Gratitude entries
 
-When are you:
-- Sharpest? → Schedule creation
-- Social? → Schedule meetings
-- Low energy? → Schedule admin
+### 2. Draw the Portrait
+
+**Energy Arc:** How did energy flow?
+> "Started 8 → dipped to 5 midweek → recovered to 7"
+
+**Pillar Heat Map:** Which pillars got love? Which were neglected?
+```
+████████░░ Creation (8 days)
+███░░░░░░░ Body (3 days)
+░░░░░░░░░░ Wealth (0 days) ⚠️
+```
+
+**Project Distribution:** Where did focus actually go?
+- Project A: 60%
+- Project B: 25%
+- Scattered: 15%
+
+**Top Win:** What shipped or succeeded?
+
+**Top Gap:** What didn't happen that should have?
+
+**Pattern:** One insight about the week's rhythm.
+> "Front-loaded work, coasted by Thursday"
+
+### 3. Confirm
+
+Ask yourself: "Is this accurate? Anything missing?"
 
 ---
 
-## Weekly Template Checklist
+## Part 2: Project-by-Project (10 min)
 
-Your weekly doc should have:
+### For Each Active Project
 
+**Surface what happened:**
+- What shipped?
+- What's in progress?
+- Any decisions made?
+- Any blockers?
+
+**Ask two questions:**
+1. "What MUST happen for this project this week?"
+2. "What would feel like a win?"
+
+### Portfolio Check
+
+- Any projects to add?
+- Any to pause or deprioritize?
+- Any zombie projects to kill or commit to?
+
+---
+
+## Part 3: Top 3s (5 min)
+
+**Top 3s emerge from the project review.**
+
+### Top 3 Professional
+
+Synthesize from your project "must happens":
+1. Highest leverage deliverable
+2. Second priority
+3. Third priority
+
+### Top 3 Personal
+
+Connect to pillar gaps and monthly focus:
+1. Pillar-related or life priority
+2. Pillar-related or life priority
+3. Pillar-related or life priority
+
+---
+
+## Part 4: Pillar Commitments (5 min)
+
+**Don't walk through all 10. Focus on what needs attention.**
+
+### Score Last Week
+
+| Pillar | Score | Trend |
+|--------|-------|-------|
+| Body | /10 | ↑↓→ |
+| Spirit | /10 | ↑↓→ |
+| Mind | /10 | ↑↓→ |
+| Relationships | /10 | ↑↓→ |
+| Joy | /10 | ↑↓→ |
+| Creation | /10 | ↑↓→ |
+| Wealth | /10 | ↑↓→ |
+| Impact | /10 | ↑↓→ |
+| Media | /10 | ↑↓→ |
+| Exploration | /10 | ↑↓→ |
+
+### Attention Protocol
+
+- **Below 5:** Needs specific commitment this week
+- **Below 3:** Crisis mode — prioritize it
+- **Above 7:** Keep doing what's working
+- **Multi-week low:** Something structural needs to change
+
+### Set Commitments
+
+For weak pillars, set **specific, measurable** commitments:
+- "3x gym" not "exercise more"
+- "Invoice 2 clients" not "focus on wealth"
+- "1x date night" not "be more present"
+
+---
+
+## Part 5: Think Bigger (5-10 min)
+
+This is where task management becomes life alignment.
+
+### Pick 2-3 Questions
+
+**Resource Allocation:**
+- Is your time going where your values are?
+- What would the 80/20 version of this week look like?
+- If you could only do ONE thing, what would matter most?
+
+**Potential Detection:**
+- Where is there untapped leverage you're ignoring?
+- What would make this week *outstanding* vs just good?
+- What are you holding back on that you should go all-in on?
+
+**Vision Alignment:**
+- Is this week moving you toward your identity or just moving?
+- In 5 years, will this week have mattered?
+
+**Gratitude:**
+- What are you grateful for from last week?
+- What's working that you're taking for granted?
+- Who deserves your appreciation?
+
+**Edge & Growth:**
+- What uncomfortable thing will you do? (One Brave Act)
+- What will you do purely for aliveness? (One Joy Anchor)
+
+---
+
+## Part 6: Write (5 min)
+
+### Create New Week Journal
+
+`02_JOURNAL/Weekly/YYYY-W##.md` with:
+- Week Summary (one-line + month connection)
+- Keystone Focus
+- Top 3 Personal & Professional
+- Pillar Commitments (tracking grid)
+- One Brave Act + One Joy Anchor
+- Project Buckets with tasks
+- Daily Log sections (7 days)
+- Empty reflection section
+
+### Complete Last Week's Reflection
+
+Fill in the Week Portrait + pillar scores + one-line summary.
+
+### Update System Files
+
+- `GLOBAL_STATE.md` — Current focus, energy
+- `TODO.md` — Sync "This Week" with project buckets
+- Project `_STATE.md` files — If anything changed
+- People notes — If anyone was mentioned
+- Monthly doc — Week progress note
+
+---
+
+## Checklist
+
+Your weekly setup should have:
+
+- [ ] Week Portrait complete (last week closed)
+- [ ] One-Line Summary for rollup
 - [ ] Keystone focus defined
-- [ ] Pillar intentions set
-- [ ] Brave act named
-- [ ] Joy anchor planned
-- [ ] System upgrade identified
-- [ ] Daily sections ready
+- [ ] Top 3 Personal set
+- [ ] Top 3 Professional set
+- [ ] Pillar commitments (focus on gaps)
+- [ ] One Brave Act named
+- [ ] One Joy Anchor planned
+- [ ] Project buckets with tasks
+- [ ] Month connection noted
+- [ ] All state files updated
 
 ---
 
@@ -146,26 +232,38 @@ Your weekly doc should have:
 Block this on your calendar. It's not optional.
 
 ### Don't Over-Plan
-Leave slack. Life happens. 70% planned is about right.
+Leave slack. 70% planned is about right.
 
-### Connect to Month
-Your weekly keystone should serve your monthly goals.
+### Month Connection
+Your keystone should serve your monthly focus. If it doesn't, one of them is wrong.
 
-### Review Project States
-Stale `_STATE.md` files lead to confusion. Keep them current.
+### Patterns Over Tasks
+The Week Portrait matters more than listing every item. See the forest.
+
+### One-Line Summary
+This makes monthly rollups trivial. Capture the week's essence for future scanning.
+
+### Project-First
+Top 3s feel more real when they emerge from project reality, not abstract thinking.
 
 ---
 
 ## Common Pitfalls
 
+### Skipping the Portrait
+The pattern recognition is the value. Don't just list tasks.
+
 ### Planning Too Much
-If you can't fit it on one page, it's too much.
+If it doesn't fit on one page, it's too much.
 
-### Skipping the Reflection
-The review is as important as the planning. Don't skip it.
+### Ignoring Low Pillars
+Multiple weeks below 5 = structural problem. Address it.
 
-### Ignoring Low-Scoring Pillars
-If a pillar scores low multiple weeks, something needs to change.
+### Asking What You Know
+If you have the data, surface the patterns. Only ask to confirm or fill gaps.
 
 ### Forgetting Joy
-Productivity without aliveness leads to burnout.
+Productivity without aliveness leads to burnout. Schedule the joy anchor.
+
+### Disconnecting from Month
+Every week should explicitly serve monthly goals. If it doesn't, realign.

@@ -72,6 +72,16 @@ Present the default pillars and ask for customization:
 
 Which of these resonate with you? Any you'd rename, remove, or add?"
 
+### 2.2.5 Vision ↔ Pillars (Bridge)
+
+Connect their 5-year picture to pillars so LIFE_VISION supports great months, weeks, and days:
+
+1. "Looking at your 5-year picture, which 2–4 pillars are most central to that vision?"
+
+2. Optional, for each they name: "For [pillar], in one sentence: what does 'winning' look like there in 5 years?"
+
+Capture which pillars they said are central and the one-sentence vision-per-pillar (if given). Use this when populating LIFE_VISION.md (Pillar alignment section).
+
 ### 2.3 Active Projects
 
 "What are your 1-3 most important active projects right now? For each one, tell me:
@@ -112,6 +122,7 @@ Summarize what you've gathered and confirm before creating the vault:
 **Your Vision:** [summary]
 **Your Word:** [their word]
 **Your Pillars:** [list, noting any customizations]
+**Vision by pillar:** [which pillars are central + one-sentence "winning" per pillar if given]
 **Your Projects:** [list with phases]
 **Your Key People:** [list]
 
@@ -183,6 +194,7 @@ my-vault/
 - Their 5-year vision answer (formatted nicely)
 - Their one word
 - A "Future Self" section describing who they're becoming
+- **Pillar alignment** (or "Vision by pillar"): which pillars they said are central to their 5-year picture; for each of those, the one-sentence "what does winning look like there in 5 years?" if they gave it. This ties vision to PILLARS so monthly/weekly/daily can reference "your vision for [pillar] was X."
 
 **PILLARS.md** - Include:
 - All 10 pillars (customized if they made changes)

@@ -53,53 +53,88 @@ You don't need to hit all five daily—but if you consistently miss one, that's 
 
 ## Weekly Cadence (30-45 minutes)
 
-Best done Sunday evening or Monday morning. This is your most important ritual.
+Best done Saturday evening, Sunday, or Monday morning. **Flexible by design.** This is your most important ritual.
 
-### Setup (5 min)
+### Philosophy
 
-1. Create new week doc from template (`templates/weekly.md`)
-2. Copy to `02_JOURNAL/Weekly/{{year}}-W{{week}}.md`
-3. Fill in dates
+- **Don't ask what you know** — Read the data, surface patterns, confirm accuracy
+- **Project-first thinking** — Top 3s emerge from project review
+- **Think bigger** — This isn't task management, it's life alignment
+- **Zero entropy** — Every mentioned entity gets updated
 
-### Review Last Week (10 min)
+### The Flow
 
-Look at your previous weekly doc:
+```
+SILENT READ → WEEK PORTRAIT → PROJECTS → TOP 3s → PILLARS → THINK BIGGER → WRITE
+```
 
-1. **What went well?** - Celebrate wins, note what worked
-2. **What didn't?** - No judgment, just observation
-3. **What should change?** - One adjustment for next week
-4. **Pillar scores** - Rate each pillar 1-10
+### Phase 1: Week Portrait (10 min)
 
-### Plan This Week (15-20 min)
+Close last week with **pattern-oriented insights**, not Q&A:
 
-1. **Set your Keystone Focus**
-   > "If only one thing worked this week, what matters most?"
+- **Energy Arc** — How did energy flow across the week?
+- **Pillar Heat Map** — Which pillars got attention? Which were neglected?
+- **Project Distribution** — Where did focus actually go?
+- **Wins & Gaps** — What shipped? What didn't?
+- **Pattern** — One insight about the week's rhythm
 
-   This is your north star. Everything else is secondary.
+Ask only: "Is this accurate? Anything missing?"
 
-2. **Pillar Intentions**
-   Set intentions for 3-5 pillars (not all 10). Focus on what needs attention.
+### Phase 2: Project-by-Project (10 min)
 
-3. **One Brave Act**
-   > "What uncomfortable thing will I do?"
+For each active project:
+1. Surface what happened last week (from data)
+2. Ask: "What MUST happen this week?"
+3. Ask: "What would feel like a win?"
 
-   Growth lives at the edge of comfort.
+Then: "Any projects to add, pause, or deprioritize?"
 
-4. **One Joy Anchor**
-   > "What will I do purely for aliveness?"
+### Phase 3: Top 3s (5 min)
 
-   Schedule this. It won't happen otherwise.
+**Top 3s emerge from the project review:**
+- Synthesize professional priorities from project deliverables
+- Connect personal priorities to pillar gaps and monthly focus
 
-5. **One System Upgrade**
-   > "What will make future weeks easier?"
+### Phase 4: Pillar Commitments (5 min)
 
-   Small improvements compound.
+Don't walk through all 10. **Focus on gaps:**
+- Show last week's scores and trends
+- Highlight weak pillars (below 5)
+- Ask for specific, measurable commitments on weak areas
+- Acknowledge what's working
 
-### Update State (5 min)
+### Phase 5: Think Bigger (5-10 min)
 
-1. Update `00_SYSTEM/GLOBAL_STATE.md` with current focus
-2. Update any project `_STATE.md` files that changed
-3. Commit changes to git
+Pick 2-3 life-shaper questions:
+
+**Resource Allocation:**
+- "Is your time going where your values are?"
+- "What would the 80/20 version of this week look like?"
+
+**Potential Detection:**
+- "Where is there untapped leverage you're ignoring?"
+- "What would make this week *outstanding* vs just good?"
+
+**Gratitude:**
+- "What are you grateful for from last week?"
+- "What's working that you're taking for granted?"
+
+**Edge:**
+- "What uncomfortable thing will you do?" (One Brave Act)
+- "What will you do purely for aliveness?" (One Joy Anchor)
+
+### Phase 6: Write & Verify (5 min)
+
+Update all files atomically:
+1. Create new week journal with Top 3s, pillars, project buckets
+2. Complete last week's reflection + one-line summary
+3. Update `GLOBAL_STATE.md`
+4. Update project `_STATE.md` files
+5. Update `TODO.md` "This Week" section
+6. Update people notes if anyone was mentioned
+7. Note progress in monthly doc
+
+Each week journal includes a **One-Line Summary** for easy monthly rollup.
 
 ---
 
@@ -235,6 +270,8 @@ Every three months, zoom out and assess the bigger picture.
 ---
 
 ## Yearly Cadence (Half day)
+
+A dedicated `/yearly` skill is planned; for now use this as a manual ritual.
 
 January is vision refresh time. This is the deepest work.
 

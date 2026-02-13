@@ -1,6 +1,6 @@
 # /new-project Skill
 
-Create a new project with full structure and state.
+Create a new project with a structure tailored to what you'll actually do.
 
 ## Usage
 
@@ -26,21 +26,84 @@ Before running this skill, check:
 
 ---
 
+## Philosophy: Description-Driven Structure
+
+Every project is different. A client business has different needs than a podcast, which is different from a personal health project.
+
+Instead of asking "what type is this?", we ask "what will you DO in this project?" and propose folders based on signals in your description.
+
+---
+
 ## Flow
 
-### Step 1: Gather Project Information
+### Step 1: Gather Core Project Information
 
 **Ask (if not provided):**
 - "What's the project name?" (will be used for folder name)
 
 **Then ask:**
-- "What type of project is this?"
-  - Personal (hobby, health, learning)
-  - Client (external client work)
-  - Business (your own business/product)
-  - Creative (writing, art, music)
-  - Other
+- "Describe this project in 1-2 sentences. What will you DO here? (build, sell, write, manage, track, create...)"
 
+### Step 2: Detect Signals & Propose Structure
+
+**Parse the description for these signals:**
+
+| If description mentions... | Propose folder |
+|---------------------------|----------------|
+| clients, customers, contracts, proposals, agreements | Legal/, Accounts/, Clients/ |
+| team, engineering, code, PRs, technical, build, develop | Engineering/, Reports/ |
+| content, podcast, videos, episodes, subscribers, publish | Content/, Episodes/, Metrics/ |
+| money, budget, investments, revenue, expenses | Finances/ |
+| calls, meetings, 1:1s | Calls/ |
+| metrics, growth, KPIs, analytics, tracking | Metrics/ |
+| workflows, processes, playbooks, operations | Operations/ |
+| community, members, audience, subscribers | Community/ |
+| research, learning, notes | Notes/, Research/ |
+| diagrams, architecture, design | Diagrams/ |
+| writing, drafts, publishing | Drafts/, Published/ |
+| people, contacts, relationships | People/ |
+
+**Always include:**
+- `_STATE.md` - Project state (always)
+- `_BACKLOG.md` - Task backlog (always)
+- `Decisions/` - Decision logs (always)
+- `Notes/` - General notes (always, unless Research/ proposed)
+
+### Step 3: Present Proposed Structure for Approval
+
+Show the proposed structure based on signals:
+
+```
+Based on your description, I suggest:
+
+{{Project Name}}/
+├── _STATE.md       (always)
+├── _BACKLOG.md     (always)
+├── Decisions/      (always)
+├── Notes/          (always)
+├── Calls/          ✓ (you mentioned meetings/calls)
+├── Legal/          ✓ (you mentioned contracts)
+├── People/         ✓ (you mentioned team/clients)
+└── Metrics/        ? (optional - want to track KPIs?)
+
+Would you like to:
+1. Create as proposed
+2. Add folders
+3. Remove folders
+4. Start over
+```
+
+### Step 4: Scale Check
+
+For projects that might grow large:
+
+"Will this project have 50+ files over time? (many calls, episodes, clients)"
+- If yes → Suggest numbered prefixes (see Numbered Folders section)
+- If no → Keep flat structure
+
+### Step 5: Gather Remaining Context
+
+**Ask:**
 - "What phase is it in?"
   - Starting (idea/planning)
   - Building (active development)
@@ -48,11 +111,9 @@ Before running this skill, check:
   - Maintaining (steady state)
   - Wrapping up (finishing)
 
-- "Brief description - what is this project about?"
-
 - "Who's involved? (names of key people, if any)"
 
-- "Which pillar(s) does this project serve?" (can be multiple)
+- "Which pillar(s) does this project serve?"
   - Body & Energy
   - Spirit & Meaning
   - Mind & Clarity
@@ -66,116 +127,73 @@ Before running this skill, check:
 
 - "What's the current focus or main blocker?"
 
-- "What does success look like for this project?"
+### Step 6: Confirm Final Structure
 
-### Step 2: Confirm Before Creating
+Summarize everything:
 
-Summarize and confirm:
-
-"Here's what I'm going to create:
+```
+Ready to create:
 
 **Project:** {{name}}
-**Type:** {{type}}
 **Phase:** {{phase}}
 **Description:** {{description}}
 **People:** {{people or 'Solo'}}
 **Pillars:** {{pillars}}
 **Current Focus:** {{focus}}
-**Success Definition:** {{success}}
 
-I'll create this at `03_PROJECTS/{{name}}/`
+**Structure:**
+03_PROJECTS/{{name}}/
+├── _STATE.md
+├── _BACKLOG.md
+├── Decisions/
+├── Notes/
+├── Calls/
+├── Legal/
+└── People/
 
-Ready to create?"
-
-### Step 3: Create Project Structure
-
-Create the folder structure:
-
-```
-03_PROJECTS/{{project-name}}/
-├── _STATE.md           # Project state (populated)
-├── _BACKLOG.md         # Task backlog
-├── Calls/              # Call notes
-├── Decisions/          # Decision logs
-└── Notes/              # General notes
+Create this project? (Yes/Edit/Cancel)
 ```
 
-**For Client/Business projects, also create:**
-```
-├── People/             # Project-specific contacts
-├── Accounts/           # Company accounts (if B2B)
-└── Legal/              # Contracts, agreements
-```
+### Step 7: Create Project Structure
 
-### Step 4: Populate _STATE.md
+Create the approved folder structure.
 
-Use the `templates/project-state.md` template and populate:
+**For complex folders (Legal/, Operations/, Engineering/), also create a _GUIDE.md:**
+- Legal/ → Create with basic legal folder guide
+- Operations/ → Create with operations guide
+- Engineering/ → Create with engineering notes guide
 
-```markdown
-# {{Project Name}}
+### Step 8: Populate _STATE.md
 
-## Overview
-{{description}}
+Use `templates/project-state.md` and populate with gathered info.
 
-## Phase
-{{phase}} - {{brief explanation of what this means}}
-
-## Success Definition
-{{what success looks like}}
-
-## Current Focus
-{{main focus or blocker}}
-
-## Team
-{{list of people involved, or "Solo project"}}
-- [[People/{{Name}}]] - {{role}}
-
-## Pillars Served
-{{which pillars this connects to}}
-
-## Timeline
-- Started: {{today's date}}
-- Target completion: {{if known, or "Ongoing"}}
-
-## Key Links
-- Related projects: {{if any}}
-- Key documents: {{if any}}
-
-## Notes
-{{any additional context}}
-
----
-
-Last updated: {{today's date}}
-
-#project #{{type}} #{{phase}}
-```
-
-### Step 5: Populate _BACKLOG.md
+### Step 9: Populate _BACKLOG.md
 
 Create empty backlog:
 
 ```markdown
 # {{Project Name}} - Backlog
 
+*Last updated: {{DATE}}*
+
+## Current Sprint
+_Active tasks for this week_
+
 ## Next Up
-_Tasks ready to work on_
+_Ready to start when current sprint completes_
 
-## Soon
-_Tasks for this week/sprint_
+## Future Features
+_Ideas and longer-term items_
 
-## Later
-_Tasks for future_
-
-## Ideas
-_Unprocessed ideas and possibilities_
+## Waiting On
+_Blocked by external dependencies_
 
 ---
 
 #project #backlog
 ```
 
-### Step 6: Create/Link Person Notes
+### Step 10: Create/Link Person Notes
 
 For each person mentioned:
 
@@ -183,7 +201,7 @@ For each person mentioned:
 2. If not, offer to create: "{{Name}} doesn't have a person note yet. Create one?"
 3. Add a link from the new person note to this project
 
-### Step 7: Update GLOBAL_STATE.md
+### Step 11: Update GLOBAL_STATE.md
 
 Add the new project to the active projects list in GLOBAL_STATE.md:
 
@@ -192,23 +210,26 @@ Add the new project to the active projects list in GLOBAL_STATE.md:
 - [[03_PROJECTS/{{new-project}}/_STATE|{{Project Name}}]] - {{phase}}
 ```
 
-### Step 8: Confirm & Next Steps
+### Step 12: Confirm & Next Steps
 
-"Your project is set up at `03_PROJECTS/{{name}}/`
+```
+✓ Project created at 03_PROJECTS/{{name}}/
 
 **Files created:**
-- `_STATE.md` - Project state and context
-- `_BACKLOG.md` - Task backlog
-- `Calls/` - For call notes
-- `Decisions/` - For decision logs
-- `Notes/` - For general notes
+- _STATE.md - Project state and context
+- _BACKLOG.md - Task backlog
+- Decisions/ - For decision logs
+- Notes/ - For general notes
+{{For each additional folder}}
+- {{Folder}}/ - {{purpose}}
 
 **Next steps:**
-1. Add initial tasks to `_BACKLOG.md`
-2. Log any existing decisions in `Decisions/`
-3. When you have calls, create notes in `Calls/` with format `YYYY-MM-DD-topic.md`
+1. Add initial tasks to _BACKLOG.md
+2. Log any existing decisions in Decisions/
+3. When you have calls, create notes in Calls/ with format YYYY-MM-DD-topic.md
 
-The project is now linked from your GLOBAL_STATE."
+The project is now linked from your GLOBAL_STATE.
+```
 
 ---
 
@@ -224,24 +245,164 @@ Examples:
 - "Health App" → `health-app`
 - "Q1 Planning" → `q1-planning`
 - "Side Hustle #2" → `side-hustle-2`
+- "Acme Corp Client Work" → `acme-corp`
 
 ---
 
-## Project Types & Default Folders
+## Numbered Folders (Optional)
 
-| Type | Extra Folders | Notes |
-|------|---------------|-------|
-| Personal | Standard only | Simple structure |
-| Client | People/, Accounts/, Legal/ | CRM-style for client management |
-| Business | People/, Accounts/, Legal/ | Full business project |
-| Creative | Standard only | May add Drafts/, Published/ |
+For high-volume projects (many episodes, many clients, etc.), use numbered prefixes:
+
+```
+Acme/
+├── 00_STATE.md
+├── 01_BACKLOG.md
+├── 02_Legal/
+├── 03_Operations/
+├── 04_Accounts/
+├── 05_Calls/
+├── 06_Notes/
+└── 07_Decisions/
+```
+
+**When to suggest numbered prefixes:**
+- User says project will have 50+ files
+- Project type is podcast/content (many episodes)
+- Project type is client services (many accounts)
+
+---
+
+## Signal-to-Folder Mapping Reference
+
+| Signal Keywords | Folder(s) | Purpose |
+|-----------------|-----------|---------|
+| clients, customers, accounts, B2B | Accounts/, Clients/ | Track client relationships |
+| contracts, legal, agreements, proposals | Legal/ | Store legal documents |
+| team, engineering, code, technical | Engineering/ | Technical docs, architecture |
+| content, podcast, episodes, videos | Content/, Episodes/ | Content production |
+| metrics, KPIs, analytics, growth | Metrics/ | Track performance |
+| operations, workflows, processes | Operations/ | Playbooks, SOPs |
+| calls, meetings, 1:1s | Calls/ | Meeting notes |
+| community, members, audience | Community/ | Community management |
+| finances, budget, revenue | Finances/ | Financial tracking |
+| diagrams, architecture, design | Diagrams/ | Visual documentation |
+| research, learning | Research/ | Research notes |
+| people, contacts, relationships | People/ | Project-specific contacts |
+
+---
+
+## Project Archetypes (Reference)
+
+Common patterns based on real usage:
+
+### Business/Client Project
+```
+Acme/
+├── _STATE.md
+├── _BACKLOG.md
+├── Legal/
+├── Operations/
+├── Accounts/
+├── Clients/
+├── People/
+├── Calls/
+├── Decisions/
+└── Notes/
+```
+
+### Content/Creator Project
+```
+Podcast/
+├── _STATE.md
+├── _BACKLOG.md
+├── Episodes/
+├── Content/
+├── Metrics/
+├── Community/
+├── Calls/
+├── Decisions/
+└── Notes/
+```
+
+### Engineering/Product Project
+```
+App/
+├── _STATE.md
+├── _BACKLOG.md
+├── Engineering/
+├── Diagrams/
+├── Reports/
+├── Calls/
+├── Decisions/
+└── Notes/
+```
+
+### Personal/Life Project
+```
+Health/
+├── _STATE.md
+├── _BACKLOG.md
+├── Decisions/
+└── Notes/
+```
+
+---
+
+## Folder Guides
+
+For complex folders, create a `_GUIDE.md` inside:
+
+### Legal/_GUIDE.md
+```markdown
+# Legal Folder Guide
+
+This folder contains legal documents for {{project}}.
+
+## Organization
+- Contracts: `contract-{{party}}-{{date}}.pdf`
+- Agreements: `agreement-{{topic}}-{{date}}.md`
+- Proposals: `proposal-{{client}}-{{date}}.md`
+
+## Status Tracking
+Add status frontmatter to documents:
+- status: draft | sent | signed | expired
+
+## Important
+- Never delete signed contracts, archive instead
+- Review contracts 30 days before expiration
+```
+
+### Operations/_GUIDE.md
+```markdown
+# Operations Folder Guide
+
+This folder contains operational playbooks and processes.
+
+## Organization
+- Playbooks: `playbook-{{process}}.md`
+- Checklists: `checklist-{{task}}.md`
+- Workflows: `workflow-{{process}}.md`
+
+## Template
+Each playbook should have:
+- Purpose
+- Steps (numbered)
+- Triggers (when to run)
+- Owner
+```
 
 ---
 
 ## Tips
 
-- Keep project names short but meaningful
+- Let your description drive the structure - be specific about what you'll do
+- Start with fewer folders - you can always add more later
 - Link to relevant people immediately
 - The phase should be updated as project progresses
 - Use `_STATE.md` as the source of truth for project context
 - Archive projects when done, don't delete
+- If unsure about a folder, start without it and add later
+
+---
+
+#skill #project-management

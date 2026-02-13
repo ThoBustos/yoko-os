@@ -16,13 +16,44 @@ MCP is an open protocol created by Anthropic that enables AI assistants to secur
 
 - [Architecture Overview](ARCHITECTURE.md) - How MCP layers work
 - [Google Workspace](google-workspace.md) - Drive, Calendar, Gmail, Docs, Sheets
+- [Slack](slack.md) - Message search, channels, DMs, threads
+- [Twitter/X](twitter.md) - Post, search, engage on Twitter
+- [WhatsApp](whatsapp.md) - Message search and sending (unofficial)
+- [Notion](notion.md) - Pages, databases, search, comments
+- [Linear](linear.md) - Issue tracking, project management
+- [Granola](granola.md) - Meeting transcription, summaries
 - [Secrets Management](secrets-management.md) - Handling credentials safely
 
 ## Available Integrations
 
-| Integration | Description | Status | Docs |
-|-------------|-------------|--------|------|
-| [Google Workspace](google-workspace.md) | Drive, Calendar, Gmail, Docs, Sheets | Ready | [Setup Guide](google-workspace.md) |
+| Integration | Description | API Type | Risk | Status | Docs |
+|-------------|-------------|----------|------|--------|------|
+| [Google Workspace](google-workspace.md) | Drive, Calendar, Gmail, Docs, Sheets | Official OAuth | Low | Ready | [Setup Guide](google-workspace.md) |
+| [Slack](slack.md) | Channels, DMs, search, threads | Unofficial | Low-Medium | Ready | [Setup Guide](slack.md) |
+| [Twitter/X](twitter.md) | Post, search, timeline, engagement | Official API | Low | Ready | [Setup Guide](twitter.md) |
+| [WhatsApp](whatsapp.md) | Messages, contacts, send | Unofficial | Medium | Ready | [Setup Guide](whatsapp.md) |
+| [Notion](notion.md) | Pages, databases, search, comments | Official API | Low | Ready | [Setup Guide](notion.md) |
+| [Linear](linear.md) | Issues, projects, teams | Official OAuth | Low | Ready | [Setup Guide](linear.md) |
+| [Granola](granola.md) | Meeting transcripts, summaries | Official connector | Low | Ready | [Setup Guide](granola.md) |
+
+### Integration Comparison
+
+| Platform | API Type | Risk Level | Cost | Recommendation |
+|----------|----------|------------|------|----------------|
+| **Google Workspace** | Official OAuth | Low | Free | Use it |
+| **Slack** | Unofficial (user-level) | Low-Medium | Free | Use it (stealth mode) |
+| **Twitter/X** | Official API | Low | Free tier available | Good to add |
+| **WhatsApp** | Unofficial | Medium (ban risk) | Free | Secondary account only |
+| **Notion** | Official API | Low | Free | Use it |
+| **Linear** | Official OAuth | Low | Free | Use it |
+| **Granola** | Official connector | Low | Paid | Use it (meeting intelligence) |
+| **LinkedIn** | Unofficial | High (ban risk) | - | Avoid |
+
+### Risk Levels Explained
+
+- **Low**: Official API with proper authorization. Safe for primary accounts.
+- **Medium**: Unofficial API that violates ToS. Account suspension possible. Use secondary accounts.
+- **High**: Unofficial API with aggressive detection. High likelihood of ban. Not recommended.
 
 ## Current Setup
 
@@ -93,6 +124,12 @@ personal-agent-os/
 │   ├── README.md                # Overview (you are here)
 │   ├── ARCHITECTURE.md          # MCP architecture explanation
 │   ├── google-workspace.md      # Google setup guide
+│   ├── slack.md                 # Slack setup guide
+│   ├── twitter.md               # Twitter/X setup guide
+│   ├── whatsapp.md              # WhatsApp setup guide (unofficial)
+│   ├── notion.md                # Notion setup guide
+│   ├── linear.md                # Linear setup guide
+│   ├── granola.md               # Granola meeting transcription guide
 │   └── secrets-management.md    # Credentials philosophy
 ├── config/mcp/                  # Example configs (safe to commit)
 │   ├── .gitignore               # Ignores real secrets
@@ -102,8 +139,18 @@ personal-agent-os/
     └── settings.local.example.json  # Example Claude config
 
 ~/.config/personal-agent-os/     # SECRETS (never committed)
-└── google/
-    └── credentials.json         # OAuth client credentials
+├── google/
+│   └── credentials.json         # OAuth client credentials
+├── slack/
+│   └── credentials.json         # Slack tokens (stealth or OAuth)
+├── twitter/
+│   └── credentials.json         # Twitter API keys
+├── notion/
+│   └── credentials.json         # Notion integration tokens
+├── linear/
+│   └── credentials.json         # Linear API key (optional - OAuth preferred)
+└── granola/                     # If using community MCP (optional)
+    └── (per server docs)
 ```
 
 ## Resources

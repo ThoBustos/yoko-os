@@ -103,11 +103,39 @@ Create a summary with these sections:
 #{{project}} #weekly-calls #{{year}}-W{{week}}
 ```
 
-### Step 6: Write Output
+### Step 6: Confirm & Write Output
 
-1. Create the output file at: `03_PROJECTS/{{Project}}/Notes/{{YYYY}}-W{{NN}}-calls.md`
-2. Create the `Notes/` folder if it doesn't exist
-3. Report success with the file path
+1. Check if output file already exists at: `03_PROJECTS/{{Project}}/Notes/{{YYYY}}-W{{NN}}-calls.md`
+2. **If file exists:**
+   - Inform user: "Summary for {{Project}} Week {{N}} already exists at {{path}}"
+   - Ask user: "Do you want to overwrite the existing summary or skip?"
+   - Options: Overwrite / Skip
+   - If Skip: End here, report "Skipped - existing summary preserved"
+
+3. **Before writing, show what will be saved:**
+```
+I'm about to save the weekly call summary:
+- {{N}} calls processed
+- {{N}} decisions logged
+- {{N}} action items captured
+- Theme: {{theme}}
+
+File: 03_PROJECTS/{{Project}}/Notes/{{YYYY}}-W{{NN}}-calls.md
+
+Proceed? (Yes/No)
+```
+
+4. Create the `Notes/` folder if it doesn't exist
+5. Write the output file
+
+6. **After writing, verify:**
+```
+✓ Weekly summary saved to: 03_PROJECTS/{{Project}}/Notes/{{YYYY}}-W{{NN}}-calls.md
+  - Timestamp: {{ISO}}
+  - {{word count}} words
+
+Summary complete.
+```
 
 ### Step 7: Update Person Cards
 
@@ -137,6 +165,16 @@ For each person mentioned in the week's calls:
 **Example Interaction Entry:**
 ```markdown
 | 2026-03-18 | Acme project kickoff | Aligned on scope and timeline |
+```
+
+5. **After updating person cards, verify:**
+```
+✓ Updated {{N}} person cards:
+  - {{Person 1}} ({{N}} interactions added)
+  - {{Person 2}} ({{N}} interactions added)
+  ...
+
+All relationship updates complete.
 ```
 
 ---

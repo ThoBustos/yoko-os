@@ -16,6 +16,9 @@ Thumbs.db
 *.swp
 *.swo
 
+# Excalidraw
+excalidraw.log
+
 # Node (if used)
 node_modules/
 
@@ -24,3 +27,16 @@ __pycache__/
 *.pyc
 .venv/
 venv/
+
+# Local vault config
+config/vault.json
+
+# MCP credentials (real ones - keep examples)
+config/mcp/*.json
+!config/mcp/*.example.json
+
+# Personal skills (underscore prefix = not pushed)
+.claude/skills/_*/
+
+# Personal docs
+docs/WRITING_IDENTITY*.md

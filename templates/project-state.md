@@ -77,6 +77,7 @@ next_review: {{YYYY-MM-DD + 1 week}}
 - GitHub:
 - Figma:
 - Drive:
+- Diagrams: `./Diagrams/` (if exists)
 - Other:
 
 ---
@@ -93,6 +94,8 @@ next_review: {{YYYY-MM-DD + 1 week}}
 | GitHub | | Repository access |
 | Google Chat | | Team workspace |
 | Slack | | |
+| Notion | | Project documentation (specify personal/client) |
+| Linear | | Issue tracking, sprint planning |
 
 ---
 

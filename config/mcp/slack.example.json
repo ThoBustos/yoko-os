@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "slack": {
+      "command": "go",
+      "args": ["run", "mcp/mcp-server.go"],
+      "cwd": "/path/to/slack-mcp-server",
+      "env": {
+        "SLACK_MCP_STEALTH_TOKEN": "xoxc-YOUR-TOKEN-HERE",
+        "SLACK_MCP_STEALTH_COOKIE": "xoxd-YOUR-COOKIE-HERE",
+        "SLACK_MCP_CACHE_DIR": "~/.cache/slack-mcp"
+      }
+    }
+  }
+}
