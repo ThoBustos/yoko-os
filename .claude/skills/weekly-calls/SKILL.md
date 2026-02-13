@@ -218,7 +218,7 @@ All relationship updates complete.
 # Acme - Week 11 Calls (Mar 10 - Mar 16)
 
 ## Summary
-This week focused on Thomas's onboarding and role definition at Acme. Conversations with the CEO, Engineering Lead, and Product Director clarified the UX leadership opportunity and established initial working relationships. The team is actively preparing for the new product launch.
+This week focused on Alex's onboarding and role definition at Acme. Conversations with the CEO, Engineering Lead, and Product Director clarified the UX leadership opportunity and established initial working relationships. The team is actively preparing for the new product launch.
 
 ## This Week's Calls
 | Date | With | Topic | Key Outcome |
@@ -228,7 +228,7 @@ This week focused on Thomas's onboarding and role definition at Acme. Conversati
 | Mar 11 | Alice | Follow-up | 30/60/90 plan expectations set |
 
 ## Decisions Made
-- **Thomas to lead UX/product experience** (Mar 10, with CEO)
+- **Alex to lead UX/product experience** (Mar 10, with CEO)
 - **30/60/90 day plan to be submitted this week** (Mar 10, with CEO)
 
 ## Key Insights
@@ -238,14 +238,14 @@ This week focused on Thomas's onboarding and role definition at Acme. Conversati
 
 ## Open Questions
 - What's the timeline for Q2 product rebrand?
-- How will Thomas and Bob divide technical leadership?
+- How will Alex and Bob divide technical leadership?
 
 ## Action Items Generated
-- [ ] Thomas: Submit 30/60/90 plan (from Mar 10 call)
-- [ ] Alice: Intro Thomas to Carol (from Mar 10 call)
+- [ ] Alex: Submit 30/60/90 plan (from Mar 10 call)
+- [ ] Alice: Intro Alex to Carol (from Mar 10 call)
 
 ## Theme
-Establishing Thomas's leadership role and integrating with the incoming engineering team.
+Establishing Alex's leadership role and integrating with the incoming engineering team.
 
 ## Momentum
 - **Accelerating:** Role clarity, team introductions, vision alignment

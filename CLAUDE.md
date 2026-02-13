@@ -79,6 +79,7 @@ my-vault/
 │   ├── PILLARS.md       # 10 life pillars with questions
 │   ├── IMPORTANT_DATES.md # Recurring dates, rituals, anniversaries
 │   ├── TODO.md          # Master cross-project to-do list
+│   ├── extensions/      # Skill extensions (vault-specific customizations)
 │   └── OPS/             # System operations and rituals
 │       ├── activity-logs/  # Weekly session activity logs
 │       └── scans/       # Pulse logs and deep scan reports
@@ -130,6 +131,64 @@ These phrases invoke `/onboarding`:
 - "set up my system"
 - "get started"
 - "initialize my vault"
+
+---
+
+## Skill Extensions
+
+Skill extensions allow vault-specific customizations without modifying the core OpenYoko framework.
+
+**Architecture:**
+- Core skills live in OpenYoko (generic, shareable)
+- Extensions live in the vault (personal, private)
+- Extensions are loaded at the START of skills to provide context and configuration
+
+**Extension Location:**
+```
+{{vault}}/00_SYSTEM/extensions/{{skill-name}}.md
+```
+
+**How it works:**
+1. Skill loads extension FIRST (if exists)
+2. Extension provides: personal config, flow modifications, post-skill actions
+3. Skill runs its workflow using extension context
+4. After completion, skill executes post-skill actions from extension
+
+**Extension file format:**
+```markdown
+# {{Skill Name}} Extension
+
+Vault-specific customizations for /{{skill}}.
+
+## Pre-Skill Configuration
+[Personal config: calendar IDs, accounts, custom settings]
+
+## Flow Modifications
+[Optional: skip steps, add steps, change behavior]
+
+## Post-Skill Actions
+[Actions to run after skill completes]
+
+## Instructions
+[Detailed post-skill instructions]
+```
+
+**What extensions can do:**
+- **Configure:** Specify which calendars, accounts, or services to use
+- **Skip:** Remove steps that don't apply to you
+- **Add:** Insert custom checks (Granola, Slack, specific dates)
+- **Modify:** Change default behavior based on day/context
+- **Post-process:** Git commit, notifications, syncing after completion
+
+**Examples:**
+- `daily.md` - Calendar config, skip grounding questions, git push after
+- `weekly.md` - Custom reflection prompts, send summary to Slack
+- `scan.md` - Check specific projects, post report to dashboard
+
+**Creating extensions:**
+1. Create `00_SYSTEM/extensions/` in your vault (if not exists)
+2. Add `{{skill-name}}.md` for any skill you want to extend
+3. Add personal config and any flow modifications you want
 
 ---
 
@@ -343,6 +402,7 @@ Templates are in `personal-agent-os/templates/`:
 - `contact.md` - Project contact (CRM)
 - `scan-report.md` - Deep scan output format
 - `pulse-log.md` - Quick pulse log format
+- `skill-extension.md` - Skill extension template
 
 Always reference templates when creating new entries.
 

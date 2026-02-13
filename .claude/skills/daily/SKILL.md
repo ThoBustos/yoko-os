@@ -5,15 +5,48 @@ Morning planning or evening reflection ritual. Run daily to stay aligned with yo
 ## Usage
 
 ```
-/daily [morning|evening]
+/daily [morning|evening|quick]
 ```
 
 **Examples:**
-- `/daily` - Unified daily reflection + planning
-- `/daily morning` - Same flow, morning greeting
-- `/daily evening` - Same flow, evening greeting
+- `/daily` - Full daily reflection + planning
+- `/daily morning` - Full flow, morning greeting
+- `/daily evening` - Full flow, evening greeting
+- `/daily quick` - Fast 3-min version: calendar → Top 3 → energy → done
 
-**Note:** The `morning|evening` arg only changes the greeting tone, not the logic. The flow is comprehensive regardless of time.
+**Modes:**
+- `morning/evening` - Changes greeting tone, full flow
+- `quick` - Streamlined flow for low-energy days (skips grounding questions, open exploration, detailed backlog review)
+
+---
+
+## Quick Mode Flow
+
+When `/daily quick` is invoked, run this streamlined 3-minute flow:
+
+```
+Step 0   → Git commit/push (silent)
+Step 0.5 → Load extension (silent)
+Step 0.75→ Check date (silent)
+Step 1   → Read context (silent)
+Step 2   → Gather (abbreviated):
+           0. Important dates (if any)
+           1. Calendar + auto-build Day Plan
+           3. Today planning (#1 focus, fill [TBD])
+           4. Energy level only (skip pillars)
+           7. Task count + urgent only
+Step 3-6 → Categorize, confirm, write, verify (same)
+Step 7-8 → Complete + extension (same)
+```
+
+**What quick mode SKIPS:**
+- Yesterday reflection (step 2.2)
+- Grounding question (step 2.5)
+- Open exploration (step 2.6)
+- Full backlog table (step 2.7 - just shows count)
+- Pillar check-in (just energy)
+
+**Use when:** Low energy, busy day, just need calendar + Top 3 locked in.
 
 ---
 
@@ -134,9 +167,38 @@ Is this accurate?"
 
 ## Daily Flow (Unified)
 
-### Step 0: Check Current Date (Silent)
+### Step 0: Commit & Push Vault (Silent)
 
-**FIRST:** Check the system date to understand what day it is:
+**FIRST:** Save any uncommitted vault changes before starting the daily ritual.
+
+1. Navigate to vault directory (from `config/vault.json`)
+2. Check if there are any uncommitted changes: `git status --porcelain`
+3. IF changes exist:
+   - Stage all changes: `git add -A`
+   - Commit with message: `git commit -m "vault: auto-save before daily $(date +%Y-%m-%d)"`
+   - Push to remote: `git push`
+4. IF no changes: Skip silently
+
+**Why:** Ensures vault is saved before starting fresh daily reflection. Prevents data loss.
+
+### Step 0.5: Load Extension (Silent)
+
+**Check for vault-specific extension and load it early:**
+
+1. Look for `{{vault}}/00_SYSTEM/extensions/daily.md`
+2. IF EXISTS:
+   - Read the entire extension file
+   - Note any "Pre-Skill" sections (e.g., "Pre-Skill Calendar Check")
+   - These instructions will be used in later steps (especially Step 2 for calendars)
+   - Store the extension context for use throughout the skill
+3. IF NOT EXISTS:
+   - Continue with default behavior from this skill file
+
+**Why:** Extensions may contain vault-specific configuration (e.g., which calendar IDs to check, custom accounts). Loading early ensures this context is available when needed.
+
+### Step 0.75: Check Current Date (Silent)
+
+**NEXT:** Check the system date to understand what day it is:
 - Use Bash: `date +"%A %B %d, %Y"` (e.g., "Tuesday January 27, 2026")
 - Use Bash: `date +"%Y-W%V"` to get the ISO week file name (e.g., "2026-W05")
 - This determines which journal file to read/update
@@ -148,54 +210,111 @@ Is this accurate?"
 
 Read these files without outputting:
 - `{{vault}}/00_SYSTEM/GLOBAL_STATE.md` - Current focus, energy, active projects, **ALL Google accounts**
-- `{{vault}}/02_JOURNAL/Weekly/{{YYYY}}-W{{WW}}.md` (where WW = ISO week from Step 0)
-- `{{vault}}/00_SYSTEM/TODO.md` - Discrete tasks
+- `{{vault}}/02_JOURNAL/Weekly/{{YYYY}}-W{{WW}}.md` (where WW = ISO week from Step 0.75)
+- `{{vault}}/00_SYSTEM/TODO.md` - Discrete tasks (note open vs completed)
+- `{{vault}}/00_SYSTEM/IMPORTANT_DATES.md` - Check for TODAY's items (birthdays, anniversaries, deadlines)
 - Active project `_STATE.md` files (from GLOBAL_STATE.md)
+- Active project `_BACKLOG.md` files (for task backlog review)
 
 **CRITICAL: Read Yesterday's Entry**
 - Find yesterday's section in weekly journal
 - Note: What was planned? What Top 3? What calls?
 - This enables plan-vs-reality reflection in Step 2
 
+**CRITICAL: Check IMPORTANT_DATES.md**
+- Scan for any dates matching TODAY
+- Note birthdays, anniversaries, deadlines, recurring events
+- These will be surfaced prominently in Step 2
+
 ### Step 2: Gather Information (Conversational)
 
-**Greeting:** Adapt based on arg (morning/evening) or time
+**Greeting:** Adapt based on arg (morning/evening/quick) or time
 - Morning: "Good morning! Let's set your day."
 - Evening: "Good evening! Let's capture your day."
+- Quick: "Quick check-in. Here's your day:"
 - Neutral: "Let's check in on your day."
 
-**1. YESTERDAY REFLECTION (Plan vs Reality)**
+---
+
+**0. IMPORTANT DATES (Show First If Any)**
+If IMPORTANT_DATES.md had items for TODAY, surface them prominently:
+```
+📅 **Today's Important Dates:**
+- 🎂 Sarah's birthday
+- ⏰ Q1 tax deadline
+- 💍 Anniversary (5 years)
+```
+Don't ask questions, just surface them so user is aware.
+
+---
+
+**1. CALENDAR + AUTO-BUILD DAY PLAN**
+
+**Fetch calendars:**
+- IF extension loaded (from Step 0.5) with "Pre-Skill Calendar Check" section:
+  - Use the calendar configuration from the extension
+  - Follow the exact `user_google_email` and `calendar_id` values specified
+  - Call `get_events` for each calendar_id listed in the extension
+- OTHERWISE (fallback):
+  - Read ALL Google accounts from GLOBAL_STATE.md "Default Integrations" table
+  - For EACH account: call `get_events` for today
+
+**Auto-build draft Day Plan table:**
+Using calendar events, generate a DRAFT Day Plan table automatically:
+
+```
+📋 **Draft Day Plan** (from your calendars)
+
+| Est | Block | What | Working On |
+|-----|-------|------|------------|
+| AM | Personal | Morning routine | |
+| 09:30-10:00 | Call | Team standup (#work) | |
+| 10:00-12:00 | Deep Work | [TBD - your focus] | |
+| 12:00-12:30 | Break | Lunch | |
+| 12:30-14:30 | Deep Work | [TBD] | |
+| 14:30-15:00 | Call | Client sync (LTAI) | |
+| 15:00-17:00 | Deep Work | [TBD] | |
+| 18:00-19:00 | Call | External call | |
+
+What Deep Work blocks should you fill in?
+```
+
+**Rules for auto-draft:**
+- Calls from calendar → exact times, mark as `Call`
+- Gaps between calls → mark as `Deep Work` with [TBD]
+- Add morning `Personal` block and `Lunch` break
+- User fills in the [TBD] slots with their priorities
+
+---
+
+**2. YESTERDAY REFLECTION (Plan vs Reality)** *(Skip in quick mode)*
 Based on yesterday's journal entry:
 - "Yesterday you planned: [Top 3 from journal]. What actually happened?"
 - "Any tasks that rolled over?"
 - "What got accomplished that wasn't planned?"
 - "Any reflections or learnings?"
 
-**2. TODAY'S CALENDAR (Check ALL Accounts)**
-Before asking about today, silently:
-- Read ALL Google accounts from GLOBAL_STATE.md "Default Integrations" table
-- For EACH account: call `get_events` for today
-- Search emails for calendar invites (newer_than:2d)
-- Merge into single chronological list
-
-Show combined calendar:
-"Here's your day across all calendars: [table]"
+---
 
 **3. TODAY PLANNING**
 - "What's your #1 focus for today?"
 - "What would make today successful?"
-- Help build Day Plan table (calls + action blocks)
+- Fill in [TBD] slots in Day Plan table
 
 **Show Context:**
 - Surface Top 3s (Personal + Professional from week journal)
 - Surface key tasks from TODO.md (urgent, related to Top 3)
 - Note pillar commitments for the week
 
+---
+
 **4. ENERGY & PILLARS**
 - "Energy level? (1-10)"
 - "Pillar check-in - which will you hit today?"
 
-**5. GROUNDING QUESTION (Rotating)**
+---
+
+**5. GROUNDING QUESTION (Rotating)** *(Skip in quick mode)*
 Pick ONE based on day of week:
 - Monday: "What are you grateful for right now?"
 - Tuesday: "What truth are you avoiding?"
@@ -204,8 +323,54 @@ Pick ONE based on day of week:
 - Friday: "What beauty or awe have you noticed recently?"
 - Weekend: "What does rest look like for you today?"
 
-**6. OPEN EXPLORATION**
+---
+
+**6. OPEN EXPLORATION** *(Skip in quick mode)*
 - "Anything else on your mind? (decisions, people, projects, ideas)"
+
+---
+
+**7. TASK BACKLOG REVIEW (Skim Check)** *(Abbreviated in quick mode)*
+
+Before finalizing the day, show a consolidated view of all open tasks so nothing is forgotten.
+
+**Full mode display:**
+```
+📋 **Open Tasks Overview**
+
+**TODO.md** ({{count}} open)
+| Priority | Task | Added | Project |
+|----------|------|-------|---------|
+| 🔴 | Task description | 3d ago | #project |
+| 🟡 | Task description | 1w ago | #personal |
+| ⚪ | Task description | 2d ago | #project |
+
+**Project Backlogs** (if any have items)
+| Project | Open Items | Oldest |
+|---------|------------|--------|
+| #project1 | 5 | 2w ago |
+| #project2 | 2 | 3d ago |
+
+Anything here you want to tackle today or flag?
+```
+
+**Quick mode display:**
+```
+📋 **Tasks** ({{count}} open, {{urgent}} urgent)
+Any 🔴 urgent items you need to handle today?
+```
+Only show count and ask about urgent items. Skip the full table.
+
+**Rules:**
+- Pull from `00_SYSTEM/TODO.md` - show ALL open tasks (not checked)
+- Pull from `03_PROJECTS/*/\_BACKLOG.md` - show counts per project
+- Priority indicators: 🔴 = urgent/overdue, 🟡 = this week, ⚪ = backlog
+- Show "Added" as relative time (today, 2d ago, 1w ago)
+- Keep table scannable - truncate long task descriptions
+- Ask: "Anything here you want to tackle today or flag?"
+- If user picks something → add to today's Top 3 or Day Plan
+
+**Purpose:** Prevent tasks from rotting in backlog. Daily skim = nothing forgotten.
 
 ### Day Plan Table Format (MANDATORY)
 
@@ -471,6 +636,18 @@ Date: {{YYYY-MM-DD}}
 {{If morning:}} Have a great day!
 {{If evening:}} Sleep well! Tomorrow's focus: {{preview}}
 ```
+
+### Step 8: Execute Post-Skill Extension Actions (Final)
+
+**After all core steps complete**, execute the extension's post-skill actions:
+
+1. IF extension was loaded in Step 0.5:
+   - Execute the "Instructions" section (post-skill actions like git commit/push)
+   - Report what was done
+2. IF no extension exists:
+   - Skip silently, skill is complete
+
+**Note:** The extension was already loaded in Step 0.5 for pre-skill config (calendars, etc.). This step executes the "Instructions" section which contains post-skill actions like git commits, notifications, or syncing to external services.
 
 ---
 

@@ -71,7 +71,7 @@ Personal Agent OS supports two working directory patterns depending on your task
 **When:** Developing/maintaining the Personal Agent OS framework itself
 
 ```bash
-cd /Users/thomas/Documents/projects/personal-agent-os
+cd /path/to/openyoko
 claude  # or: claude /skill-name
 ```
 
@@ -92,7 +92,7 @@ claude  # or: claude /skill-name
 **When:** Daily usage, running rituals, working on personal projects
 
 ```bash
-cd /Users/thomas/Documents/projects/my-vault
+cd /path/to/my-vault
 claude  # or: claude /skill-name
 ```
 
@@ -117,7 +117,7 @@ To enable skills from one directory to be discovered when working from the other
 
 **Setup:**
 ```bash
-cd /Users/thomas/Documents/projects/personal-agent-os/.claude/skills
+cd /path/to/openyoko/.claude/skills
 ln -s ../../../my-vault/.claude/skills/content-pipeline content-pipeline
 ```
 
@@ -129,7 +129,7 @@ ln -s ../../../my-vault/.claude/skills/content-pipeline content-pipeline
 
 **Setup:**
 ```bash
-cd /Users/thomas/Documents/projects/my-vault/.claude
+cd /path/to/my-vault/.claude
 mkdir -p skills
 cd skills
 ln -s ../../../personal-agent-os/.claude/skills/daily daily
