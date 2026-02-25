@@ -89,6 +89,11 @@ You're being spawned from another Claude Code session. Here's the context:
 {{default: "Review this context for discrepancies and validate the approach before implementing."}}
 ```
 
+**Log handoff to vault (before creating the pane):**
+- Resolve vault path: read `config/vault.json` from the repo where spawn is run (see CLAUDE.md); if missing, fall back to `../my-vault/` relative to that repo.
+- Ensure `{{vault}}/00_SYSTEM/OPS/spawns/` exists.
+- Write one note per spawn so you can revisit context later. See **Spawn logging** below for format and fields.
+
 ### Phase 3: Create New Pane
 
 **Split the window and capture new pane number:**
@@ -147,6 +152,52 @@ tmux select-pane -t "$CURRENT_WINDOW.$CURRENT_PANE"
 To switch to spawned session: Ctrl+B then arrow key
 To close spawned pane: Ctrl+B then x (in that pane)
 ```
+
+---
+
+## Spawn logging (vault)
+
+Every spawn prompt is saved to the vault so you can track spawns and reopen any note to see full handoff context.
+
+**Location:** `{{vault}}/00_SYSTEM/OPS/spawns/`
+
+**Filename:** `YYYY-MM-DD-HHMMSS-spawn.md` (e.g. `2026-02-23-143022-spawn.md`). One file per spawn; sortable and unique.
+
+**Who writes:** When running interactively, the agent writes the file after building the handoff and before creating the tmux pane. If spawn is invoked via a bash script, pass vault path (e.g. from `config/vault.json` or env) and have the script write the same file, or have the agent write it before/after invoking the script.
+
+**File format:**
+
+```yaml
+---
+spawn: true
+date: 2026-02-23T14:30:22
+repo: /path/to/target/repo
+handoff_type: plan-review
+tags: [spawn, system]
+---
+
+# Spawn handoff – YYYY-MM-DD HH:MM
+
+## Context Handoff
+
+(full handoff markdown – same text sent to the new pane)
+```
+
+**Frontmatter fields:**
+
+| Field | Source |
+|-------|--------|
+| `spawn` | Always `true` (for Dataview) |
+| `date` | ISO 8601 when spawn ran |
+| `repo` | Resolved repo path (target where Claude runs) |
+| `handoff_type` | `plan-review` \| `research` \| `parallel-impl` \| `skill` \| `custom` |
+| `tags` | `[spawn, system]` |
+
+**Body:** The complete handoff text (identical to what is sent to the new pane). Opening the note = full context for that spawn.
+
+**Dataview:** Use `LIST WHERE spawn` or `LIST FROM "00_SYSTEM/OPS/spawns"` to see all spawns; `TABLE date, repo, handoff_type FROM #spawn SORT date DESC` for a table.
+
+**Long prompts:** When the handoff is sent via a temp file (see Edge Cases), still write the full handoff content to the vault log—the note should always contain the complete context, not a reference to the temp file.
 
 ---
 
@@ -227,6 +278,7 @@ set -e
 
 REPO_PATH="${1:-$(pwd)}"
 INITIAL_PROMPT="${2:-Review the current context and validate the approach before proceeding.}"
+VAULT_PATH="${3:-}"  # Optional: if set, write spawn log to vault/00_SYSTEM/OPS/spawns/
 
 # Preflight: Check tmux
 if [ -z "$TMUX" ]; then
@@ -238,6 +290,9 @@ fi
 CURRENT_WINDOW=$(tmux display-message -p '#I')
 CURRENT_PANE=$(tmux display-message -p '#P')
 echo "Current: Window $CURRENT_WINDOW, Pane $CURRENT_PANE"
+
+# Optional: Log handoff to vault (if VAULT_PATH set)
+# Write {{vault}}/00_SYSTEM/OPS/spawns/YYYY-MM-DD-HHMMSS-spawn.md with frontmatter + INITIAL_PROMPT as body
 
 # Create new pane (horizontal split)
 tmux split-window -h
@@ -318,6 +373,7 @@ When called without arguments, the skill should interactively gather:
   echo "$INITIAL_PROMPT" > "$PROMPT_FILE"
   tmux send-keys -t "$CURRENT_WINDOW.$NEW_PANE" "Read $PROMPT_FILE and follow the instructions." Enter
   ```
+- **Still write the full handoff to the vault** (see Spawn logging). The spawn note must contain the complete context, not a reference to the temp file.
 
 **Special characters in prompt:**
 - Escape quotes and special chars when passing through bash
